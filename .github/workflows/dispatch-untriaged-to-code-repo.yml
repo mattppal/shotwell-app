@@ -26,7 +26,7 @@ jobs:
       - name: Send repository_dispatch to shotswell code repo
         uses: actions/github-script@v7
         env:
-          CODE_REPO_OWNER: mattpalmer
+          CODE_REPO_OWNER: mattppal
           CODE_REPO_NAME: shotswell
         with:
           github-token: ${{ secrets.DISPATCH_TOKEN }}
