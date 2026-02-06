@@ -1,0 +1,45 @@
+name: Dispatch Triage Request To Code Repo
+
+on:
+  issues:
+    types:
+      - labeled
+
+permissions:
+  contents: read
+  issues: read
+
+jobs:
+  dispatch:
+    if: ${{ github.event.label.name == 'ready-for-agent' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send repository_dispatch to shotswell code repo
+        uses: actions/github-script@v7
+        env:
+          CODE_REPO_OWNER: mattpalmer
+          CODE_REPO_NAME: shotswell
+        with:
+          github-token: ${{ secrets.DISPATCH_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            if (!issue) {
+              throw new Error("Issue payload missing.");
+            }
+
+            await github.request("POST /repos/{owner}/{repo}/dispatches", {
+              owner: process.env.CODE_REPO_OWNER,
+              repo: process.env.CODE_REPO_NAME,
+              event_type: "shotwell_feedback_issue_ready",
+              client_payload: {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue: {
+                  number: issue.number,
+                  title: issue.title,
+                  body: issue.body,
+                  html_url: issue.html_url,
+                  labels: issue.labels.map((label) => label.name),
+                },
+              },
+            });
