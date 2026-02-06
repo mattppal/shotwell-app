@@ -1,0 +1,10 @@
+[
+  { "name": "from-app", "color": "0E8A16", "description": "Created via in-app reporter" },
+  { "name": "needs-triage", "color": "FBCA04", "description": "Needs maintainer review" },
+  { "name": "ready-for-agent", "color": "5319E7", "description": "Approved for cloud agent run" },
+  { "name": "agent-running", "color": "1D76DB", "description": "Cloud agent currently running" },
+  { "name": "agent-complete", "color": "0E8A16", "description": "Agent finished and posted result" },
+  { "name": "agent-failed", "color": "B60205", "description": "Agent run failed" },
+  { "name": "needs-info", "color": "D4C5F9", "description": "Reporter needs to provide more details" },
+  { "name": "duplicate", "color": "C5DEF5", "description": "Duplicate of an existing bug report" }
+]
